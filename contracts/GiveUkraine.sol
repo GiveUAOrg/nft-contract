@@ -2,10 +2,10 @@
 // 
 // 🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦
 //
-//  Made with ❤️ for Ukraine 
-//  Hope to support in their fight 🆘
+//        Made with ❤️ for Ukraine 
+//    Hope to support in their fight 🆘
 //  
-// 🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺
+// 🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦🇺🇦
 //
 pragma solidity ^0.8.0;
 
@@ -25,7 +25,7 @@ contract GiveUkraineOrg is ERC721, Ownable {
     // Constants
     address public constant UKRAINE_DONATION_ADDRESS = 0x165CD37b4C644C2921454429E7F9358d18A45e14;
     uint256 public constant MAX_SUPPLY = 24891;
-    uint256 public constant MAX_GIFTS = 24;
+    uint256 public constant MAX_GIFTS = 42;
     uint256 public constant MIN_DONATION_PER_NFT = 0.024081991 ether;
     string public constant BASE_EXTENSION = ".json";
 
@@ -93,7 +93,7 @@ contract GiveUkraineOrg is ERC721, Ownable {
     }
 
     /**
-     * @dev Show me the Moodie
+     * @dev Show me the NFT
      */
     function tokenURI(uint256 tokenId)
         public
@@ -130,7 +130,7 @@ contract GiveUkraineOrg is ERC721, Ownable {
     }
     
     /** 
-     * @dev Donate any remaining balance to Ukraine...($ . $)
+     * @dev Donate any remaining balance to Ukraine...❤️
      */
     function donate() public payable {
         (bool os, ) = payable(UKRAINE_DONATION_ADDRESS).call{value: address(this).balance}("");
@@ -166,7 +166,7 @@ contract GiveUkraineOrg is ERC721, Ownable {
     }
     
     /** 
-     * @dev Good stuff, coming through...
+     * @dev Image cart coming through...
      */
     function setBaseURI(uint256 _batch, string memory _newBaseURI) 
         public 
@@ -178,14 +178,14 @@ contract GiveUkraineOrg is ERC721, Ownable {
     }
     
     /** 
-     * @dev Ice baby ice!
+     * @dev Setting things in stone
      */
     function freezeBaseURI() public onlyOwner {
         uriFrozen = true;
     }
 
     /** 
-     * @dev Good moods all around...
+     * @dev Time to see what everyone got for their kind donations
      */
     function reveal(uint256 _batch) 
         public 

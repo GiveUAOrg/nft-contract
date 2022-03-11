@@ -38,9 +38,9 @@ describe("Gift mints", function() {
         expect(await deployment.ownerOf(2)).to.equal(addr2.address);
     });
 
-    it("Gifting is limited to 24", async function() {
-        // To avoid calling all 24 at once messing with the gas estimates chart
-        for (let i = 0; i < 4; i++) {
+    it("Gifting is limited to 42", async function() {
+        // To avoid calling all 42 at once messing with the gas estimates chart
+        for (let i = 0; i < 7; i++) {
             await deployment.mintGifts(getGiftAddresses());
         }
         
