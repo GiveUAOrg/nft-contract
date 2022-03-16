@@ -1,8 +1,7 @@
 require('dotenv').config();
-const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
-const CMC_API_KEY = process.env.CMC_API_KEY;
 
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-etherscan");
 require("hardhat-gas-reporter");
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -28,21 +27,24 @@ module.exports = {
     },
     goerli: {
       url: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-      accounts: [DEPLOYER_PRIVATE_KEY]
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY]
     },
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-      accounts: [DEPLOYER_PRIVATE_KEY]
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY]
     },
     mainnet: {
       url: "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-      accounts: [DEPLOYER_PRIVATE_KEY],
+      accounts: [process.env.DEPLOYER_PRIVATE_KEY],
       gasPrice: 21000000000
     }
   },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY
+ },
   gasReporter: {
     gasPrice: 21,
-    coinmarketcap: CMC_API_KEY,
+    coinmarketcap: process.env.CMC_API_KEY,
     currency: 'USD'
   },
   solidity: {
