@@ -1,0 +1,26 @@
+{
+	"name": "Give Ukraine Org NFT",
+	"description": "Issued for donating 0.024081991 ETH to Ukraine during crisis. This NFT hasn't been revealed yet. You will see the actual artwork and metadata associated with the artwork after the reveal. NFTs are revealed in batches. Checkout project FAQ for more details.",
+	"image": "ipfs://QmVk26cHq8EsoZx8dX7MpkBCyfwLXF7nHYsGUjbusK6wDr/3.jpg",
+	"external_url": "https://giveua.org",
+	"date": 1647460223000,
+	"attributes": [{
+			"display_type": "date",
+			"trait_type": "Posted",
+			"value": 1645732223000
+		},
+		{
+			"trait_type": "Location",
+			"value": "Ukraine"
+		},
+		{
+			"trait_type": "Day in crisis",
+			"value": 19
+		},
+		{
+			"trait_type": "Art style",
+			"value": "Von Gogh"
+		}
+	],
+	"compiler": "Give Ukraine Org AI Art Engine"
+}
