@@ -3,7 +3,7 @@ const hre = require("hardhat");
 
 async function main() {
     const contract = await hre.ethers.getContractFactory("GiveUkraineOrg");
-    const deployment = await contract.deploy(process.env.NOT_REVEALED_URL);
+    const deployment = await contract.deploy(process.env.CONTRACT_URL, process.env.NOT_REVEALED_URL);
     await deployment.deployed();
     console.log("Give Ukraine contract deployed to:", deployment.address);
 }

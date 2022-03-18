@@ -21,24 +21,24 @@ describe("Gift mints", function() {
         addr1 = await ethers.getSigner(1);
         addr2 = await ethers.getSigner(2);
         const contract = await hre.ethers.getContractFactory("GiveUkraineOrg");
-        deployment = await contract.deploy("");
+        deployment = await contract.deploy("", "");
         await deployment.deployed();
     });
 
-    it("Gifting won't work for non-owner", async function() {
+    it("Gifting won't work for non-owner (gas estimate)", async function() {
         await expect(
             deployment.connect(addr1).mintGifts([addr1.address])
         ).to.be.revertedWith('Ownable: caller is not the owner');
     });
 
-    it("Gifting works for owner", async function() {
+    it("Gifting works for owner (gas estimate)", async function() {
         await deployment.mintGifts(getGiftAddresses());
 
         expect(await deployment.ownerOf(1)).to.equal(addr1.address);
         expect(await deployment.ownerOf(2)).to.equal(addr2.address);
     });
 
-    it("Gifting is limited to 42", async function() {
+    it("Gifting is limited to 42 (gas estimate)", async function() {
         // To avoid calling all 42 at once messing with the gas estimates chart
         for (let i = 0; i < 7; i++) {
             await deployment.mintGifts(getGiftAddresses());

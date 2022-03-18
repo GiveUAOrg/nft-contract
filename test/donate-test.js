@@ -10,13 +10,13 @@ describe("Donate", function() {
     beforeEach("Deploy the contract", async function() {
         const contract = await hre.ethers.getContractFactory("GiveUkraineOrg");
         owner = await ethers.getSigner(0);
-        deployment = await contract.deploy("");
+        deployment = await contract.deploy("", "");
         await deployment.deployed();
         await deployment.donateAndMint(1, { value: ethers.utils.parseEther(`${0.03}`) });
         await deployment.donateAndMint(1, { value: ethers.utils.parseEther(`${0.03}`) });
     });
 
-    it("Donate gives all balance to Ukraine", async function() {
+    it("Donate gives all balance to Ukraine (gas estimate)", async function() {
         const balanceBefore = BigNumber.from(await hre.ethers.provider.getBalance(UKRAINE_ADDRESS));
         const contractBalance = BigNumber.from(await hre.ethers.provider.getBalance(deployment.address));
         const expectedBalance = balanceBefore.add(contractBalance);

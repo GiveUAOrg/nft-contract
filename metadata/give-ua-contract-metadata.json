@@ -1,0 +1,8 @@
+{
+	"name": "Give Ukraine Org",
+	"description": "Donate to Ukraine and receive an NFT. 100% of all donations and royalties go directly to Ukraine's official wallet.",
+	"image": "ipfs://Qmf7wEF4PCymbhcK6zUN8wfNsyUK1fy5nRN2L9HQor5aQa",
+	"external_link": "https://giveua.org",
+	"seller_fee_basis_points": 1000,
+	"fee_recipient": "0x165CD37b4C644C2921454429E7F9358d18A45e14"
+}

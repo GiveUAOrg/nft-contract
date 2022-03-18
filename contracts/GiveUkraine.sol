@@ -21,6 +21,7 @@ contract GiveUkraineOrg is ERC721, Ownable {
 
     // Private variables
     Counters.Counter private _tokenSupply;
+    string private _contractURI;
 
     // Constants
     address public constant UKRAINE_DONATION_ADDRESS = 0x165CD37b4C644C2921454429E7F9358d18A45e14;
@@ -30,22 +31,23 @@ contract GiveUkraineOrg is ERC721, Ownable {
     string public constant BASE_EXTENSION = ".json";
 
     // We will reveal the collection in batches to avoid making all the donars wait till full mint
+    // 4200 NFTs per batch except the first and last batch
     string[6] public baseURIs;
     bool[6] public revealed = [false, false, false, false, false, false];
     bool uriFrozen = false;
     string public notRevealedURI;
     uint256 public giftedAmount = 0;
 
-    constructor(string memory _initNotRevealedURI) ERC721("Give Ukraine Org", "GIVEUA") {
+    constructor(string memory _initContractURI, string memory _initNotRevealedURI) ERC721("Give Ukraine Org", "GIVEUA") {
+        setContractURI(_initContractURI);
         setNotRevealedURI(_initNotRevealedURI);
     }
-
 
     /////////////////////////////////
     //      Private & Internal
     /////////////////////////////////
     function _batchId(uint256 tokenId) internal pure returns (uint256) {
-        return tokenId.div(5000);
+        return tokenId.div(4200);
     }
 
     function _safeMint(address _to) private {
@@ -70,6 +72,11 @@ contract GiveUkraineOrg is ERC721, Ownable {
         _;
     }
 
+    modifier urlMutable() {
+        require(!uriFrozen, "URIs are frozen. Can't update.");
+        _;
+    }
+
     /////////////////////////////////
     //          Public
     /////////////////////////////////
@@ -90,6 +97,13 @@ contract GiveUkraineOrg is ERC721, Ownable {
         for (uint256 i = 0; i < _mintAmount; i++) {
             _safeMint(msg.sender);
         }
+    }
+
+    /**
+     * @dev Lock in royalties to Ukraine address
+     */
+    function contractURI() public view returns (string memory) {
+        return _contractURI;
     }
 
     /**
@@ -161,7 +175,11 @@ contract GiveUkraineOrg is ERC721, Ownable {
     /**
      * @dev Meh
      */
-    function setNotRevealedURI(string memory _newNotRevealedURI) public onlyOwner {
+    function setNotRevealedURI(string memory _newNotRevealedURI) 
+        public 
+        onlyOwner
+        urlMutable  
+    {
         notRevealedURI = _newNotRevealedURI;
     }
     
@@ -172,27 +190,28 @@ contract GiveUkraineOrg is ERC721, Ownable {
         public 
         onlyOwner 
         legalBatch(_batch)
+        urlMutable 
     {
-        require(!uriFrozen, "URIs are frozen. Can't update.");
         baseURIs[_batch] = _newBaseURI;
+        revealed[_batch] = true;
+    }
+
+    /**
+     * @dev Meh
+     */
+    function setContractURI(string memory _contractURINew) 
+        public 
+        onlyOwner
+        urlMutable 
+    {
+        _contractURI = _contractURINew;
     }
     
     /** 
      * @dev Setting things in stone
      */
-    function freezeBaseURI() public onlyOwner {
+    function freezeURI() public onlyOwner {
         uriFrozen = true;
-    }
-
-    /** 
-     * @dev Time to see what everyone got for their kind donations
-     */
-    function reveal(uint256 _batch) 
-        public 
-        onlyOwner 
-        legalBatch(_batch) 
-    {
-        revealed[_batch] = true;
     }
 
 }

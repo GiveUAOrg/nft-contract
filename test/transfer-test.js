@@ -13,20 +13,20 @@ describe("Transfer", function() {
         addr2 = await ethers.getSigner(2);
         
         const contract = await hre.ethers.getContractFactory("GiveUkraineOrg");
-        deployment = await contract.deploy("");
+        deployment = await contract.deploy("", "");
         await deployment.deployed();
 
         await deployment.donateAndMint(1, { value: ethers.utils.parseEther(`${0.03}`) });
         await deployment.donateAndMint(1, { value: ethers.utils.parseEther(`${0.03}`) });
     });
 
-    it("Transfer token from owner works", async function() {
+    it("Transfer token from owner works (gas estimate)", async function() {
         await deployment.transferFrom(owner.address, addr2.address, tokenNum);
 
         expect(await deployment.ownerOf(tokenNum)).to.equal(addr2.address);
     });
 
-    it("Transfer token from not owner fails", async function() {
+    it("Transfer token from not owner fails (gas estimate)", async function() {
         const [owner, addr1] = await ethers.getSigners();
 
         await expect(
@@ -34,7 +34,7 @@ describe("Transfer", function() {
         ).to.be.revertedWith('ERC721: transfer from incorrect owner');
     });
 
-    it("Transfer token from not approver fails", async function() {
+    it("Transfer token from not approver fails (gas estimate)", async function() {
         const [owner, addr1] = await ethers.getSigners();
 
         await expect(
